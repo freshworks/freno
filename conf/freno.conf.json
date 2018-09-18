@@ -1,6 +1,7 @@
 {
   "ListenPort": 8088,
+  "RaftDataDir": "data",
   "RaftBind": "127.0.0.1:10008",
-  "RaftDataDir": "/tmp",
-  "RaftNodes": []
+  "MemcacheServers": [],
+  "Dbyaml": "/home/rajesh/database_full_cluster.yml"
 }

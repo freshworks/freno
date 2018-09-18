@@ -99,6 +99,7 @@ type ConfigurationSettings struct {
 	RaftNodes       []string // Raft nodes to make initial connection with
 	MemcacheServers []string // if given, freno will report to aggregated values to given memcache
 	MemcachePath    string   // use as prefix to metric path in memcache key, e.g. if `MemcachePath` is "myprefix" the key would be "myprefix/mysql/maincluster". Default: "freno"
+	Dbyaml			string
 	Stores          StoresSettings
 }
 
@@ -125,6 +126,10 @@ func (settings *ConfigurationSettings) postReadAdjustments() error {
 	}
 	if err := settings.Stores.postReadAdjustments(); err != nil {
 		return err
+	}
+	fmt.Println("Dbyaml:" + settings.Dbyaml)
+	if settings.Dbyaml != "" {
+		settings.ParseDatabaseYaml(settings.Dbyaml)
 	}
 	return nil
 }
