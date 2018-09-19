@@ -3,5 +3,5 @@
   "RaftDataDir": "data",
   "RaftBind": "127.0.0.1:10008",
   "MemcacheServers": [],
-  "Dbyaml": "/home/rajesh/database_full_cluster.yml"
+  "Dbyaml": "/root/database_full_cluster.yml"
 }
