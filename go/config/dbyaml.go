@@ -68,9 +68,10 @@ func (settings *ConfigurationSettings) ParseDatabaseYaml(filename string) {
 		shardSettings.User = shard.Username;
 		shardSettings.Password = shard.Password
 		shardSettings.Port = shard.Port
-		if (shard.Slave.Hosts != nil) {
+		if shard.Slave.Host != ""  {
+			hosts :=  []string{shard.Slave.Host}
 			shardSettings.StaticHostsSettings = StaticHostsConfigurationSettings{
-				Hosts: shard.Slave.Hosts,
+				Hosts: hosts,
 			}
 		}
 		//shardSettings.
