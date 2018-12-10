@@ -6,8 +6,15 @@ import (
 	"fmt"
 )
 
+//type slave struct {
+//	Hosts   []string `yaml:"host"`
+//}
+
 type slave struct {
-	Hosts   []string `yaml:"host"`
+	Username  string `yaml:"username"`
+	Password  string `yaml:"password"`
+	Host      string `yaml:"host"`
+	Port      int    `yaml:"port"`
 }
 
 type mapShards map[string]ShardSettings
@@ -21,7 +28,7 @@ type ShardSettings struct {
 	NotAShard bool   `yaml:"not_a_shard"`
 	Port      int    `yaml:"port"`
 	Encoding  string `yaml:"encoding"`
-	Slave  slave `yaml:"slaves"`
+	Slave  slave `yaml:"slave"`
 }
 
 type DbConfig struct {
