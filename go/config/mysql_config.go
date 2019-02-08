@@ -45,6 +45,7 @@ type MySQLConfigurationSettings struct {
 	ThrottleThreshold float64
 	Port              int // Specify if different than 3306; applies to all clusters
 	IgnoreHostsCount  int // Number of hosts that can be skipped/ignored even on error or on exceeding theesholds
+	Dbyaml	  string
 
 	Clusters map[string](*MySQLClusterConfigurationSettings) // cluster name -> cluster config
 }

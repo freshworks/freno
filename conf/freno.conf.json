@@ -1,6 +1,8 @@
 {
-  "ListenPort": 8088,
+  "ListenPort": 9777,
+  "DefaultRaftPort": 9888,
+  "RaftDataDir": "/var/lib/freno",
   "RaftBind": "127.0.0.1:10008",
-  "RaftDataDir": "/tmp",
-  "RaftNodes": []
+  "RaftNodes": [],
+  "Dbyaml": "/opt/database_cluster.yml"
 }
