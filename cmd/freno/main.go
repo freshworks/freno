@@ -75,6 +75,8 @@ func main() {
 	}
 	log.Infof("starting freno %s, git commit %s", AppVersion, GitCommit)
 
+	populateSecrets()
+
 	loadConfiguration(*configFile)
 
 	// Potentialy override config
@@ -113,6 +115,13 @@ func loadConfiguration(configFile string) {
 
 	if err != nil {
 		log.Fatalf("Error reading configuration, please check the logs. Error was: %s", err.Error())
+	}
+}
+
+func populateSecrets() {
+	var err error = config.GenerateSecretsConfig("/secrets/n1stack/squads/")
+	if err != nil {
+		panic("Secrets generation failed for Freno")
 	}
 }
 
