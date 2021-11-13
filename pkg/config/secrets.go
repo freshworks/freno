@@ -92,6 +92,7 @@ func generate_mysql_store_configuration() MySQLConfigSettings {
 func process_mysql_store_configuration(location string, master_shards []string) (MySQLConfigSettings, error) {
 	mysqlConfigSettings := generate_mysql_store_configuration()
 	mysqlConfigSettings.Clusters = make(map[string]*MySQLClusterConfigSettings)
+	log.Debugf("Existing files are %v", master_shards)
 	for _, file := range master_shards {
 		if !strings.Contains(file, "shards") && (strings.Contains(file, "proxy") && strings.Contains(file, "slave")) {
 			continue
