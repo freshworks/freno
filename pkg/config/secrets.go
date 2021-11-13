@@ -94,7 +94,7 @@ func process_mysql_store_configuration(location string, master_shards []string) 
 	mysqlConfigSettings.Clusters = make(map[string]*MySQLClusterConfigSettings)
 	log.Debugf("Existing files are %v", master_shards)
 	for _, file := range master_shards {
-		if !strings.Contains(file, "shards") && (strings.Contains(file, "proxy") && strings.Contains(file, "slave")) {
+		if strings.Contains(file, "shards") && !strings.Contains(file, "proxy") && !strings.Contains(file, "slave") {
 			continue
 		}
 		log.Debugf("Populating secrets from file %s", file)
