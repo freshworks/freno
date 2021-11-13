@@ -96,6 +96,7 @@ func process_mysql_store_configuration(location string, master_shards []string) 
 		if !strings.Contains(file, "shards") && (strings.Contains(file, "proxy") && strings.Contains(file, "slave")) {
 			continue
 		}
+		log.Debugf("Populating secrets from file %s", file)
 		var mysqlClusterConfig = new(MySQLClusterConfigSettings)
 		master_shard_configuration := strings.Split(file, ".")
 		master_shard := master_shard_configuration[len(master_shard_configuration)-1]
