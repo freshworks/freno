@@ -121,7 +121,7 @@ func loadConfiguration(configFile string) {
 func populateSecrets() {
 	var err error = config.GenerateSecretsConfig("/secrets/n1stack/squads/")
 	if err != nil {
-		panic("Secrets generation failed for Freno")
+		log.Debugf("Error occured: %s", err.Error())
 	}
 }
 
