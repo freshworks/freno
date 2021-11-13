@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"os"
 	"strings"
 
 	"github.com/outbrain/golib/log"
@@ -97,7 +98,6 @@ func process_mysql_store_configuration(location string, master_shards []string) 
 		if strings.Contains(file, "shards") && !strings.Contains(file, "proxy") && !strings.Contains(file, "slave") {
 			continue
 		}
-		log.Debugf("Populating secrets from file %s", file)
 		var mysqlClusterConfig = new(MySQLClusterConfigSettings)
 		master_shard_configuration := strings.Split(file, ".")
 		master_shard := master_shard_configuration[len(master_shard_configuration)-1]
@@ -170,6 +170,11 @@ func GenerateSecretsConfig(secrets_folder string) error {
 	}
 	secret_files := []string{}
 	for _, f := range files {
+		info, _ := os.Stat(f.Name())
+		if info.IsDir() {
+			continue
+		}
+		log.Debugf("Adding %s to secrets_file ", f.Name())
 		secret_files = append(secret_files, f.Name())
 	}
 	err = generate_config(secrets_folder, secret_files)
