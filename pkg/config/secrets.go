@@ -96,7 +96,7 @@ func process_mysql_store_configuration(location string, master_shards []string) 
 	current_directory, _ := os.Getwd()
 	os.Chdir(location)
 	for _, file := range master_shards {
-		if !strings.Contains(file, "shards") && (strings.Contains(file, "proxy") || strings.Contains(file, "slave")) {
+		if !strings.Contains(file, "shards") && (strings.Contains(file, "database_shards") || strings.Contains(file, "proxy") || strings.Contains(file, "slave")) {
 			continue
 		}
 		var mysqlClusterConfig = new(MySQLClusterConfigSettings)
