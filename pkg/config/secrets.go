@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"os"
 	"strings"
 
 	"github.com/outbrain/golib/log"
@@ -92,7 +93,8 @@ func generate_mysql_store_configuration() MySQLConfigSettings {
 func process_mysql_store_configuration(location string, master_shards []string) (MySQLConfigSettings, error) {
 	mysqlConfigSettings := generate_mysql_store_configuration()
 	mysqlConfigSettings.Clusters = make(map[string]*MySQLClusterConfigSettings)
-	log.Debugf("Existing files are %v", master_shards)
+	current_directory, _ := os.Getwd()
+	os.Chdir(location)
 	for _, file := range master_shards {
 		if strings.Contains(file, "shards") && !strings.Contains(file, "proxy") && !strings.Contains(file, "slave") {
 			continue
@@ -101,7 +103,6 @@ func process_mysql_store_configuration(location string, master_shards []string) 
 		master_shard_configuration := strings.Split(file, ".")
 		master_shard := master_shard_configuration[len(master_shard_configuration)-1]
 		static_hosts := []string{}
-		file = fmt.Sprintf("%s/%s", location, file)
 		shard_details, err := ioutil.ReadFile(file)
 		if err != nil {
 			return mysqlConfigSettings, errors.New(err.Error())
@@ -124,6 +125,7 @@ func process_mysql_store_configuration(location string, master_shards []string) 
 		}
 		mysqlConfigSettings.Clusters[master_shard] = mysqlClusterConfig
 	}
+	os.Chdir(current_directory)
 	return mysqlConfigSettings, nil
 }
 
@@ -168,7 +170,14 @@ func GenerateSecretsConfig(secrets_folder string) error {
 		return errors.New(err.Error())
 	}
 	secret_files := []string{}
+	current_directory, _ := os.Getwd()
+	os.Chdir(secrets_folder)
 	for _, f := range files {
+		log.Debugf("Reading file %s", f.Name())
+		info, _ := os.Stat(f.Name())
+		if info.IsDir() {
+			continue
+		}
 		log.Debugf("Adding %s to secrets_file ", f.Name())
 		secret_files = append(secret_files, f.Name())
 	}
@@ -178,6 +187,7 @@ func GenerateSecretsConfig(secrets_folder string) error {
 	} else {
 		fmt.Println("Freno Configuration generated successfully")
 	}
+	os.Chdir(current_directory)
 	return nil
 
 }
