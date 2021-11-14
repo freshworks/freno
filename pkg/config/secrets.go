@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
-	"os"
 	"strings"
 
 	"github.com/outbrain/golib/log"
@@ -170,10 +169,6 @@ func GenerateSecretsConfig(secrets_folder string) error {
 	}
 	secret_files := []string{}
 	for _, f := range files {
-		info, _ := os.Stat(f.Name())
-		if info.IsDir() {
-			continue
-		}
 		log.Debugf("Adding %s to secrets_file ", f.Name())
 		secret_files = append(secret_files, f.Name())
 	}
