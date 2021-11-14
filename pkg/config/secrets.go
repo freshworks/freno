@@ -102,7 +102,7 @@ func process_mysql_store_configuration(location string, master_shards []string) 
 		master_shard_configuration := strings.Split(file, ".")
 		master_shard := master_shard_configuration[len(master_shard_configuration)-1]
 		static_hosts := []string{}
-		file = fmt.Sprintf("%s%s", location, file)
+		file = fmt.Sprintf("%s/%s", location, file)
 		shard_details, err := ioutil.ReadFile(file)
 		if err != nil {
 			return mysqlConfigSettings, errors.New(err.Error())
