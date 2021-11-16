@@ -168,6 +168,8 @@ func generate_config(location string, files []string) error {
 	if err != nil {
 		panic(err)
 	}
+	current_dir, _ := os.Getwd()
+	log.Debugf("Current directory is %s", current_dir)
 	log.Debugf("Hi " + user.Name + " (id: " + user.Uid + ")")
 	log.Debugf("Username: " + user.Username)
 	log.Debugf("Home Dir: " + user.HomeDir)
