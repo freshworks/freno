@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"os/user"
 	"strings"
 
 	"github.com/outbrain/golib/log"
@@ -160,37 +159,7 @@ func generate_config(location string, files []string) error {
 	if err != nil {
 		return errors.New(err.Error())
 	}
-	open, err := ioutil.ReadFile("/data/freno/shared/freno.conf.json")
-	if err != nil {
-		log.Debugf(err.Error())
-	}
-	user, err := user.Current()
-	if err != nil {
-		panic(err)
-	}
-	current_dir_1, _ := os.Getwd()
-	log.Debugf("Current directory is %s", current_dir_1)
-	log.Debugf("Hi " + user.Name + " (id: " + user.Uid + ")")
-	log.Debugf("Username: " + user.Username)
-	log.Debugf("Home Dir: " + user.HomeDir)
-	log.Debugf("The value of file contents are ", string(open))
-	current_dir_2 := os.Chdir("/data/freno/shared")
-	log.Debugf("Current directory is %s", current_dir_2)
-	log.Debugf("Hi " + user.Name + " (id: " + user.Uid + ")")
-	log.Debugf("Username: " + user.Username)
-	log.Debugf("Home Dir: " + user.HomeDir)
-	current_dir_3 := os.Chdir("/opt")
-	log.Debugf("Current directory is %s", current_dir_3)
-	log.Debugf("Hi " + user.Name + " (id: " + user.Uid + ")")
-	log.Debugf("Username: " + user.Username)
-	log.Debugf("Home Dir: " + user.HomeDir)
 	ioutil.WriteFile("/data/freno/shared/freno.conf.json", byte_data, 0)
-	os.Chdir(current_dir_1)
-	written_file, err := ioutil.ReadFile("/data/freno/shared/freno.conf.json")
-	if err != nil {
-		log.Debugf(err.Error())
-	}
-	log.Debugf("The value of file contents are ", string(written_file))
 	return nil
 }
 
