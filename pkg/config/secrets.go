@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"os/user"
 	"strings"
 
 	"github.com/outbrain/golib/log"
@@ -163,6 +164,13 @@ func generate_config(location string, files []string) error {
 	if err != nil {
 		log.Debugf(err.Error())
 	}
+	user, err := user.Current()
+	if err != nil {
+		panic(err)
+	}
+	log.Debugf("Hi " + user.Name + " (id: " + user.Uid + ")")
+	log.Debugf("Username: " + user.Username)
+	log.Debugf("Home Dir: " + user.HomeDir)
 	log.Debugf("The value of file contents are ", string(open))
 	ioutil.WriteFile("/data/freno/shared/freno.conf.json", byte_data, 0)
 	written_file, err := ioutil.ReadFile("/data/freno/shared/freno.conf.json")
