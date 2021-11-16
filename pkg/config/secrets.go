@@ -159,7 +159,7 @@ func generate_config(location string, files []string) error {
 	if err != nil {
 		return errors.New(err.Error())
 	}
-	ioutil.WriteFile("/data/freno/shared/freno.conf.json", byte_data, 3130)
+	ioutil.WriteFile("/data/freno/shared/freno.conf.json", byte_data, 0644)
 	return nil
 }
 
