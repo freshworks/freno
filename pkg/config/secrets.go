@@ -40,8 +40,8 @@ type MySQLConfigSettings struct {
 	User                 string `json:",omitempty"`
 	Password             string `json:",omitempty"`
 	MetricQuery          string
-	CacheMillis          int `json:",omitempty"`
-	ThrottleThreshold    float64
+	CacheMillis          int      `json:",omitempty"`
+	ThrottleThreshold    float64  `json:",omitempty"`
 	Port                 int      `json:"Port,omitempty"`
 	IgnoreDialTcpErrors  bool     `json:",omitempty"`
 	IgnoreHostsCount     int      `json:",omitempty"`
@@ -86,7 +86,7 @@ type DatabaseSecret struct {
 
 func generate_mysql_store_configuration() MySQLConfigSettings {
 	return MySQLConfigSettings{
-		ThrottleThreshold: 1.0,
+		MetricQuery: "",
 	}
 }
 
