@@ -119,7 +119,7 @@ func loadConfiguration(configFile string) {
 }
 
 func populateSecrets() {
-	var err error = config.GenerateSecretsConfig("/secrets/freshdesk/squads")
+	var err error = config.GenerateSecretsConfig()
 	if err != nil {
 		log.Debugf("Error occured: %s", err.Error())
 	}

@@ -163,7 +163,8 @@ func generate_config(location string, files []string) error {
 	return nil
 }
 
-func GenerateSecretsConfig(secrets_folder string) error {
+func GenerateSecretsConfig() error {
+	secrets_folder := os.Getenv("FRENO_SECRETS_FOLDER")
 	log.Infof("Started generating secrets config")
 	files, err := ioutil.ReadDir(secrets_folder) // will return files of type []os.FileInfo
 	if err != nil {
